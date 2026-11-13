@@ -22,7 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_13_031315) do
     t.string "name"
     t.string "features"
     t.string "sex"
-    t.boolean "ear_cut"
+    t.boolean "ear_cut", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["area_id"], name: "index_cats_on_area_id"

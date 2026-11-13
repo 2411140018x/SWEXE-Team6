@@ -5,7 +5,7 @@ class CreateCats < ActiveRecord::Migration[8.1]
       t.string :name
       t.string :features
       t.string :sex
-      t.boolean :ear_cut
+      t.boolean :ear_cut, default: false, null: false
 
       t.timestamps
     end
