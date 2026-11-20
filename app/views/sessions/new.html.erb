@@ -1,11 +1,11 @@
 <h1>ログイン</h1>
 
 <% if alert = flash[:alert] %>
-  <p style="color: red;"><%= alert %></p>
+  <div style="color: red;"><%= alert %></div>
 <% end %>
 
 <% if notice = flash[:notice] %>
-  <p style="color: green;"><%= notice %></p>
+  <div style="color: green;"><%= notice %></div>
 <% end %>
 
 <%= form_with url: session_path do |form| %>
