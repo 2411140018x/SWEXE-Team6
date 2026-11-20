@@ -11,6 +11,23 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_11_20_031755) do
+  create_table "areas", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cats", force: :cascade do |t|
+    t.integer "area_id", null: false
+    t.string "name"
+    t.string "features"
+    t.string "sex"
+    t.boolean "ear_cut", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_cats_on_area_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -28,5 +45,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_031755) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "cats", "areas"
   add_foreign_key "sessions", "users"
 end
