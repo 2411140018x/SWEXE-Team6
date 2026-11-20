@@ -19,4 +19,13 @@ cats.each do |attrs|
   end
 end
 
-puts "地区: #{Area.count}件 / 猫: #{Cat.count}匹"
+# ログイン確認用のテストユーザー
+User.find_or_create_by!(email_address: "nakamura@example.com") do |user|
+  user.password = "password"
+end
+
+User.find_or_create_by!(email_address: "mori@example.com") do |user|
+  user.password = "password"
+end
+
+puts "地区: #{Area.count}件 / 猫: #{Cat.count}匹 / ユーザー: #{User.count}人"

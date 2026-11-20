@@ -1,4 +1,4 @@
-# 基本設計書：欠勤連絡アプリ
+# 基本設計書：野良ネコ報告
 
 - チーム番号：チーム06
 
@@ -65,12 +65,13 @@ erDiagram
   AREA {
     string name "地区名"
   }
-  USER {
-    string name
-    string email
-    string role "世話人/住民/市の職員"
-    int area_id FK "担当・居住地区"
-  }
+  USER {
+    string name
+    string email_address "ログインID（重複不可）"
+    string password_digest "暗号化したパスワード"
+    string role "世話人/住民/市の職員"
+    int area_id FK "担当・居住地区"
+  }
   CAT {
     int area_id FK "よくいる地区"
     int user_id FK "登録した世話人"
