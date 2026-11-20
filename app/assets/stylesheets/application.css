@@ -58,7 +58,7 @@ body {
 
 /* ===== ハンバーガーメニュー =====
  * ヘッダー（高さ --header-height）の下に出して、「≡」ボタンを押せるままにしておく
- * 開閉は menu_controller.js が親要素に付ける .is-open で切り替える
+ * 開閉は menu_controller.js が body に付ける .is-open で切り替える
  */
 .site-menu-overlay {
   position: fixed;
