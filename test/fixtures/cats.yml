@@ -4,12 +4,12 @@ one:
   area: one
   name: MyString
   features: MyString
-  sex: MyString
+  sex: オス
   ear_cut: false
 
 two:
   area: two
   name: MyString
   features: MyString
-  sex: MyString
+  sex: メス
   ear_cut: false
