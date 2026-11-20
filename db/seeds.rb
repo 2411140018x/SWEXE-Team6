@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# ログイン確認用のテストユーザー
+User.find_or_create_by!(email_address: "nakamura@example.com") do |user|
+  user.password = "password"
+end
+
+User.find_or_create_by!(email_address: "mori@example.com") do |user|
+  user.password = "password"
+end
+
+puts "ユーザー: #{User.count}人"
