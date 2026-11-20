@@ -24,15 +24,33 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <%# トップ画面（root）は相方の担当でまだ無いため、root_path ではなく "/" を直接指定する %>
-      <a href="/" class="site-header__logo">
-        <%= image_tag "logo.png", alt: "NORA SPOT", class: "site-header__logo-image" %>
-      </a>
-      <button type="button" class="site-header__menu-button" aria-label="メニューを開く">
-        <span class="site-header__menu-icon" aria-hidden="true">≡</span>
-      </button>
-    </header>
+    <div data-controller="menu"
+         data-action="keydown.esc@window->menu#close turbo:before-cache@document->menu#close">
+      <header class="site-header">
+        <%# トップ画面（root）は相方の担当でまだ無いため、root_path ではなく "/" を直接指定する %>
+        <a href="/" class="site-header__logo">
+          <%= image_tag "logo.png", alt: "NORA SPOT", class: "site-header__logo-image" %>
+        </a>
+        <button type="button" class="site-header__menu-button"
+                aria-label="メニューを開く" aria-expanded="false" aria-controls="site-menu"
+                data-menu-target="button" data-action="menu#toggle">
+          <span class="site-header__menu-icon" aria-hidden="true">≡</span>
+        </button>
+      </header>
+
+      <div class="site-menu-overlay" data-action="click->menu#close"></div>
+
+      <nav id="site-menu" class="site-menu" aria-label="メニュー">
+        <ul class="site-menu__list">
+          <li><a href="/" class="site-menu__link">トップ</a></li>
+          <%# 以下はまだ画面が無いので「準備中」。画面ができたらリンクにする %>
+          <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">猫台帳一覧<span class="site-menu__badge">準備中</span></span></li>
+          <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">猫を報告する<span class="site-menu__badge">準備中</span></span></li>
+          <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">自分の報告一覧<span class="site-menu__badge">準備中</span></span></li>
+          <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">地区ごとの集計<span class="site-menu__badge">準備中</span></span></li>
+        </ul>
+      </nav>
+    </div>
 
     <main>
       <%= yield %>
