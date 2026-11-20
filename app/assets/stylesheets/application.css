@@ -9,6 +9,11 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+:root {
+  /* ヘッダーの高さ。メニューと暗幕の開始位置にも使う */
+  --header-height: 72px;
+}
+
 body {
   margin: 0;
 }
@@ -21,7 +26,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: var(--header-height);
   padding: 0 24px;
   background: linear-gradient(90deg, #fff0c8, #ffcfb0);
 }
@@ -52,12 +57,12 @@ body {
 }
 
 /* ===== ハンバーガーメニュー =====
- * ヘッダー（高さ72px）の下に出して、「≡」ボタンを押せるままにしておく
+ * ヘッダー（高さ --header-height）の下に出して、「≡」ボタンを押せるままにしておく
  * 開閉は menu_controller.js が親要素に付ける .is-open で切り替える
  */
 .site-menu-overlay {
   position: fixed;
-  inset: 72px 0 0 0;
+  inset: var(--header-height) 0 0 0;
   z-index: 10;
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
@@ -67,7 +72,7 @@ body {
 
 .site-menu {
   position: fixed;
-  top: 72px;
+  top: var(--header-height);
   right: 0;
   bottom: 0;
   z-index: 20;
@@ -121,4 +126,27 @@ a.site-menu__link:hover {
   background: #eee;
   color: #888;
   font-size: 0.75rem;
+}
+
+/* ===== スマホ向け（画面幅600px以下） ===== */
+@media (max-width: 600px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .site-header {
+    padding: 0 16px;
+  }
+
+  .site-header__logo-image {
+    height: 36px;
+  }
+
+  .site-menu {
+    width: 80%;
+  }
+
+  .site-menu__link {
+    padding: 16px 24px;
+  }
 }
