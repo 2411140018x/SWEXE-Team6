@@ -8,3 +8,38 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body {
+  margin: 0;
+}
+
+/* ===== 共通ヘッダー ===== */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 24px;
+  background: linear-gradient(90deg, #fff0c8, #ffcfb0);
+}
+
+.site-header__logo {
+  color: #333;
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.site-header__menu-button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-header__menu-icon {
+  color: #333;
+  font-size: 2rem;
+  line-height: 1;
+}
