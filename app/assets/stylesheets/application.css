@@ -24,10 +24,14 @@ body {
 }
 
 .site-header__logo {
-  color: #333;
-  font-size: 1.75rem;
-  font-weight: bold;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.site-header__logo-image {
+  display: block;
+  height: 48px;
+  width: auto;
 }
 
 .site-header__menu-button {

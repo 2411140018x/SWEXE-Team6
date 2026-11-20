@@ -26,7 +26,9 @@
   <body>
     <header class="site-header">
       <%# トップ画面（root）は相方の担当でまだ無いため、root_path ではなく "/" を直接指定する %>
-      <a href="/" class="site-header__logo">野良ネコ発見サイト</a>
+      <a href="/" class="site-header__logo">
+        <%= image_tag "logo.png", alt: "NORA SPOT", class: "site-header__logo-image" %>
+      </a>
       <button type="button" class="site-header__menu-button" aria-label="メニューを開く">
         <span class="site-header__menu-icon" aria-hidden="true">≡</span>
       </button>
