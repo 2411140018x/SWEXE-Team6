@@ -7,5 +7,7 @@ class CatsController < ApplicationController
   def show
     # 存在しないIDのときは find が ActiveRecord::RecordNotFound を出し、Railsが404にする
     @cat = Cat.find(params[:id])
+    # 報告は新しい順。同じ時刻の報告があっても順番がぶれないよう id でも並べる（自分の報告一覧と同じ）
+    @sightings = @cat.sightings.order(created_at: :desc, id: :desc)
   end
 end

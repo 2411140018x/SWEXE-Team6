@@ -54,6 +54,47 @@ class CatsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", cats_path, text: /猫台帳一覧に戻る/
   end
 
+  test "その猫への報告が、新しい順に日本時間の日時・対応状況・種類・内容つきで表示される" do
+    cat = cats(:one)
+    cat.sightings.destroy_all
+    cat.sightings.create!(user: users(:one), area: cat.area, kind: "目撃", description: "古い報告",
+                          status: "対応済", created_at: Time.utc(2026, 11, 1, 3, 0))
+    cat.sightings.create!(user: users(:two), area: cat.area, kind: "鳴き声", description: "新しい報告",
+                          status: "未確認", created_at: Time.utc(2026, 11, 27, 15, 30))
+    sign_in_as(users(:one))
+    get cat_url(cat)
+
+    assert_response :success
+    descriptions = css_select(".cat-report__description").map { |e| e.text.strip }
+    assert_equal [ "新しい報告", "古い報告" ], descriptions
+
+    # UTC 2026/11/27 15:30 は日本時間で 11/28 00:30
+    assert_select ".cat-report__time", text: "2026/11/28 00:30"
+    assert_select ".status-badge.status-badge--unconfirmed", text: "未確認"
+    assert_select ".status-badge.status-badge--done", text: "対応済"
+    assert_select ".cat-report__kind", text: "鳴き声"
+  end
+
+  test "ほかの猫への報告は表示されない" do
+    other_cat = cats(:two)
+    other_cat.sightings.create!(user: users(:one), area: other_cat.area, kind: "目撃", description: "別の猫の報告")
+    sign_in_as(users(:one))
+    get cat_url(cats(:one))
+
+    assert_select ".cat-report__description", text: "別の猫の報告", count: 0
+  end
+
+  test "報告が1件も無い猫は「この猫への報告はまだありません」と表示される" do
+    cat = cats(:one)
+    cat.sightings.destroy_all
+    sign_in_as(users(:one))
+    get cat_url(cat)
+
+    assert_response :success
+    assert_select ".cat-report", 0
+    assert_select "p", "この猫への報告はまだありません"
+  end
+
   test "特徴が空の猫は、特徴に「未登録」と表示される" do
     cat = cats(:one)
     cat.update!(features: "")
