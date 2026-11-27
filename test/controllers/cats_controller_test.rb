@@ -39,6 +39,31 @@ class CatsControllerTest < ActionDispatch::IntegrationTest
 
   # ===== 各猫詳細画面 =====
 
+  test "詳細画面に、呼び名・性別・耳先カット・地区・特徴が表示される" do
+    cat = cats(:one)
+    cat.update!(name: "みけ", sex: "メス", ear_cut: true, features: "三毛・しっぽが短い")
+    sign_in_as(users(:one))
+    get cat_url(cat)
+
+    assert_response :success
+    assert_select "h1", "みけ"
+    assert_select ".cat-detail__info dd", text: "メス"
+    assert_select ".cat-detail__info dd", text: "あり"
+    assert_select ".cat-detail__info dd", text: cat.area.name
+    assert_select ".cat-detail__info dd", text: "三毛・しっぽが短い"
+    assert_select "a[href=?]", cats_path, text: /猫台帳一覧に戻る/
+  end
+
+  test "特徴が空の猫は、特徴に「未登録」と表示される" do
+    cat = cats(:one)
+    cat.update!(features: "")
+    sign_in_as(users(:one))
+    get cat_url(cat)
+
+    assert_response :success
+    assert_select ".cat-detail__info dd", text: "未登録"
+  end
+
   test "詳細画面は、ログインしていないとログイン画面に移動する" do
     get cat_url(cats(:one))
 

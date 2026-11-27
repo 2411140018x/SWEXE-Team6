@@ -1,0 +1,34 @@
+<% content_for :title, "#{@cat.name}｜猫台帳" %>
+
+<article class="cat-detail">
+  <p class="cat-detail__back"><%= link_to "← 猫台帳一覧に戻る", cats_path %></p>
+
+  <div class="cat-detail__main">
+    <%# 写真の登録機能ができるまでは、一覧と同じ仮の枠を表示する %>
+    <div class="cat-detail__photo" aria-hidden="true">写真なし</div>
+
+    <div class="cat-detail__body">
+      <h1 class="cat-detail__name"><%= @cat.name %></h1>
+
+      <dl class="cat-detail__info">
+        <div>
+          <dt>性別</dt>
+          <dd><%= @cat.sex %></dd>
+        </div>
+        <div>
+          <dt>耳先カット</dt>
+          <dd><%= @cat.ear_cut ? "あり" : "なし" %></dd>
+        </div>
+        <div>
+          <dt>住んでいる地区</dt>
+          <dd><%= @cat.area.name %></dd>
+        </div>
+        <div>
+          <dt>特徴</dt>
+          <%# 特徴は必須ではないので、空のときは「未登録」と出す %>
+          <dd><%= @cat.features.presence || "未登録" %></dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</article>
