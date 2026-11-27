@@ -8,6 +8,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "ログイン画面から、ログインせずに猫台帳一覧へ移動できる" do
+    get new_session_path
+    assert_select "a[href=?]", cats_path, text: "ログインせずに猫台帳一覧を見る"
+  end
+
   test "create with valid credentials" do
     post session_path, params: { email_address: @user.email_address, password: "password" }
 

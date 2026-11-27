@@ -1,5 +1,26 @@
-<h1>トップ</h1>
+<% if alert = flash[:alert] %>
+  <p style="color: red;"><%= alert %></p>
+<% end %>
 
-<p><%= Current.user.email_address %> でログイン中</p>
+<% if Current.user.city_staff? %>
+  <h1>市の職員用トップ</h1>
+
+  <p><%= Current.user.email_address %>（市の職員）でログイン中</p>
+
+  <ul>
+    <li><%= link_to "猫台帳一覧を見る", cats_path %></li>
+    <li>地区ごとの集計（準備中）</li>
+  </ul>
+<% else %>
+  <h1>トップ</h1>
+
+  <p><%= Current.user.email_address %>（<%= Current.user.role %>）でログイン中</p>
+
+  <ul>
+    <li><%= link_to "猫を報告する", new_sighting_path %></li>
+    <li><%= link_to "自分の報告一覧", sightings_path %></li>
+    <li><%= link_to "猫台帳一覧を見る", cats_path %></li>
+  </ul>
+<% end %>
 
 <%= button_to "ログアウト", session_path, method: :delete %>

@@ -19,13 +19,13 @@ cats.each do |attrs|
   end
 end
 
-# ログイン確認用のテストユーザー
-User.find_or_create_by!(email_address: "nakamura@example.com") do |user|
-  user.password = "password"
-end
-
-User.find_or_create_by!(email_address: "mori@example.com") do |user|
-  user.password = "password"
+# ログイン確認用のテストユーザー（アカウントの種類ごとに1人ずつ。パスワードはすべて "password"）
+#   中村さん：世話人（README の想定ユーザー）／森さん：市の職員（同）／田中さん：住民
+{ "nakamura@example.com" => "世話人", "mori@example.com" => "市の職員", "tanaka@example.com" => "住民" }.each do |email, role|
+  user = User.find_or_initialize_by(email_address: email)
+  user.password = "password" if user.new_record?
+  user.role = role
+  user.save!
 end
 
 puts "地区: #{Area.count}件 / 猫: #{Cat.count}匹 / ユーザー: #{User.count}人"

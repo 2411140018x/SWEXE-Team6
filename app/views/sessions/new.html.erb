@@ -1,5 +1,7 @@
 <h1>ログイン</h1>
 
+<p>住民・世話人・市の職員の方は、お持ちのアカウントでログインしてください。アカウントの種類に合わせた画面が表示されます。</p>
+
 <% if alert = flash[:alert] %>
   <div style="color: red;"><%= alert %></div>
 <% end %>
@@ -25,3 +27,9 @@
 <% end %>
 
 <%= link_to "パスワードを忘れた方", new_password_path %>
+
+<section>
+  <h2>ログインせずに見る</h2>
+  <p>猫台帳を見るだけなら、ログインは不要です。</p>
+  <%= link_to "ログインせずに猫台帳一覧を見る", cats_path %>
+</section>
