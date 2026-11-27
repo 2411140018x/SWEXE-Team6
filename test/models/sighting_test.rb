@@ -14,4 +14,21 @@ class SightingTest < ActiveSupport::TestCase
     assert_includes sighting.errors[:kind], "報告の種類を選んでください"
     assert_includes sighting.errors[:description], "報告内容を記入してください"
   end
+
+  test "報告がある猫を削除すると、報告は残り猫は未設定に戻る" do
+    sighting = sightings(:one)
+    cat = sighting.cat
+
+    assert cat.destroy
+    assert_nil sighting.reload.cat_id
+  end
+
+  test "報告がある地区は削除できない" do
+    # 猫がいない地区で試す（猫がいる地区は cats の制約でも消せないため）
+    area = Area.create!(name: "テスト地区")
+    users(:one).sightings.create!(area: area, kind: "目撃", description: "見かけた")
+
+    assert_not area.destroy
+    assert Area.exists?(area.id)
+  end
 end
