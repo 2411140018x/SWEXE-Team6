@@ -3,7 +3,14 @@
 one:
   email_address: one@example.com
   password_digest: <%= password_digest %>
+  role: 住民
 
 two:
   email_address: two@example.com
   password_digest: <%= password_digest %>
+  role: 世話人
+
+city:
+  email_address: city@example.com
+  password_digest: <%= password_digest %>
+  role: 市の職員

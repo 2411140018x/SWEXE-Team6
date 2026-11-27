@@ -91,4 +91,20 @@ class SightingsControllerTest < ActionDispatch::IntegrationTest
     get sightings_url
     assert_select "a.site-menu__link[href=?][aria-current=page]", sightings_path, text: "自分の報告一覧"
   end
+
+  test "市の職員は報告フォームを開けず、トップに戻されてメッセージが出る" do
+    sign_in_as(users(:city))
+    get new_sighting_url
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match "猫の報告は、住民・世話人のアカウントで利用できます", response.body
+  end
+
+  test "市の職員は報告を送れない" do
+    sign_in_as(users(:city))
+    assert_no_difference("Sighting.count") do
+      post sightings_url, params: { sighting: { area_id: areas(:one).id, kind: "目撃", description: "見かけた" } }
+    end
+    assert_redirected_to root_path
+  end
 end

@@ -12,10 +12,13 @@ class CatsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".cat-card dd", text: "なし"
   end
 
-  test "ログインしていないとログイン画面に移動する" do
+  test "ログインしていなくても猫台帳一覧を見られ、メニューには「ログイン」が出る" do
     get cats_url
 
-    assert_redirected_to new_session_path
+    assert_response :success
+    assert_select ".cat-card", Cat.count
+    assert_select "a.site-menu__link[href=?]", new_session_path, text: "ログイン"
+    assert_select "a[href=?]", new_sighting_path, count: 0
   end
 
   test "猫が0匹のときはメッセージを表示し、エラーにならない" do
