@@ -1,0 +1,58 @@
+<% content_for :title, "#{@cat.name}｜猫台帳" %>
+
+<article class="cat-detail">
+  <p class="cat-detail__back"><%= link_to "← 猫台帳一覧に戻る", cats_path %></p>
+
+  <div class="cat-detail__main">
+    <%# 写真の登録機能ができるまでは、一覧と同じ仮の枠を表示する %>
+    <div class="cat-detail__photo" aria-hidden="true">写真なし</div>
+
+    <div class="cat-detail__body">
+      <h1 class="cat-detail__name"><%= @cat.name %></h1>
+
+      <dl class="cat-detail__info">
+        <div>
+          <dt>性別</dt>
+          <dd><%= @cat.sex %></dd>
+        </div>
+        <div>
+          <dt>耳先カット</dt>
+          <dd><%= @cat.ear_cut ? "あり" : "なし" %></dd>
+        </div>
+        <div>
+          <dt>住んでいる地区</dt>
+          <dd><%= @cat.area.name %></dd>
+        </div>
+        <div>
+          <dt>特徴</dt>
+          <%# 特徴は必須ではないので、空のときは「未登録」と出す %>
+          <dd><%= @cat.features.presence || "未登録" %></dd>
+        </div>
+      </dl>
+
+      <section class="cat-reports" aria-labelledby="cat-reports-title">
+        <h2 id="cat-reports-title" class="cat-reports__title">報告</h2>
+
+        <% if @sightings.present? %>
+          <ul class="cat-reports__list">
+            <% @sightings.each do |sighting| %>
+              <li class="cat-report">
+                <div class="cat-report__header">
+                  <%# アプリの時刻はUTCで保存されているので、日本時間に直して表示する（自分の報告一覧と同じ） %>
+                  <time class="cat-report__time" datetime="<%= sighting.created_at.iso8601 %>">
+                    <%= sighting.created_at.in_time_zone("Asia/Tokyo").strftime("%Y/%m/%d %H:%M") %>
+                  </time>
+                  <span class="status-badge <%= sighting_status_badge_class(sighting.status) %>"><%= sighting.status %></span>
+                  <span class="cat-report__kind"><%= sighting.kind %></span>
+                </div>
+                <p class="cat-report__description"><%= sighting.description %></p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="cat-reports__empty">この猫への報告はまだありません</p>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</article>
