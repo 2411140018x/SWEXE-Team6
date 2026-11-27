@@ -150,3 +150,88 @@ a.site-menu__link:hover {
     padding: 16px 24px;
   }
 }
+
+/* ===== 猫台帳一覧 ===== */
+.cat-index {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.cat-index__title {
+  margin: 0 0 24px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.cat-index__empty {
+  color: #666;
+}
+
+/* PCでは1行に4枚並べる（ワイヤーフレームどおり） */
+.cat-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-card {
+  color: #333;
+  text-align: center;
+}
+
+/* 写真の登録機能ができるまでの仮の枠（正方形・角丸） */
+.cat-card__photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  background: #c8d0db;
+  color: #5b6472;
+  font-size: 0.875rem;
+}
+
+.cat-card__name {
+  margin: 12px 0 4px;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.cat-card__info {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.cat-card__info div {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cat-card__info dt {
+  color: #888;
+}
+
+.cat-card__info dd {
+  margin: 0;
+}
+
+/* スマホ（ヘッダーと同じ600px以下）では1行に2枚 */
+@media (max-width: 600px) {
+  .cat-index {
+    padding: 24px 16px;
+  }
+
+  .cat-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 16px;
+  }
+
+  .cat-card__photo {
+    border-radius: 16px;
+  }
+}
