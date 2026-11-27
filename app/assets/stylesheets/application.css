@@ -183,6 +183,28 @@ a.site-menu__link:hover {
   text-align: center;
 }
 
+/* カード全体が詳細画面へのリンク。文字は青や下線にせず、カードの見た目のままにする */
+.cat-card__link {
+  display: block;
+  border-radius: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cat-card__link:hover .cat-card__photo {
+  opacity: 0.8;
+}
+
+.cat-card__link:hover .cat-card__name {
+  text-decoration: underline;
+}
+
+/* キーボードで選んだときに、どのカードか分かるよう枠を出す */
+.cat-card__link:focus-visible {
+  outline: 3px solid #e8935a;
+  outline-offset: 4px;
+}
+
 /* 写真の登録機能ができるまでの仮の枠（正方形・角丸） */
 .cat-card__photo {
   display: flex;

@@ -37,6 +37,16 @@ class CatsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".site-menu__link--disabled", text: /猫台帳一覧/, count: 0
   end
 
+  test "一覧の各カードが、その猫の詳細画面へのリンクになっている" do
+    sign_in_as(users(:one))
+    get cats_url
+
+    assert_select "a.cat-card__link", Cat.count
+    Cat.find_each do |cat|
+      assert_select "a.cat-card__link[href=?]", cat_path(cat)
+    end
+  end
+
   # ===== 各猫詳細画面 =====
 
   test "詳細画面に、呼び名・性別・耳先カット・地区・特徴が表示される" do

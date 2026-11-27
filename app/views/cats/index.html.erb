@@ -8,19 +8,22 @@
     <ul class="cat-list">
       <% @cats.each do |cat| %>
         <li class="cat-card">
-          <%# 写真の登録機能ができるまでは仮の枠を表示する %>
-          <div class="cat-card__photo" aria-hidden="true">写真なし</div>
-          <p class="cat-card__name"><%= cat.name %></p>
-          <dl class="cat-card__info">
-            <div>
-              <dt>地区</dt>
-              <dd><%= cat.area.name %></dd>
-            </div>
-            <div>
-              <dt>耳先カット</dt>
-              <dd><%= cat.ear_cut ? "あり" : "なし" %></dd>
-            </div>
-          </dl>
+          <%# カード全体を押せるように、中身ごと詳細画面へのリンクにする %>
+          <%= link_to cat_path(cat), class: "cat-card__link" do %>
+            <%# 写真の登録機能ができるまでは仮の枠を表示する %>
+            <div class="cat-card__photo" aria-hidden="true">写真なし</div>
+            <p class="cat-card__name"><%= cat.name %></p>
+            <dl class="cat-card__info">
+              <div>
+                <dt>地区</dt>
+                <dd><%= cat.area.name %></dd>
+              </div>
+              <div>
+                <dt>耳先カット</dt>
+                <dd><%= cat.ear_cut ? "あり" : "なし" %></dd>
+              </div>
+            </dl>
+          <% end %>
         </li>
       <% end %>
     </ul>
