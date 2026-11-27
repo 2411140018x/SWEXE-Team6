@@ -1,0 +1,34 @@
+<h1>報告フォーム</h1>
+
+<%= form_with model: @sighting do |f| %>
+  <% if @sighting.errors.any? %>
+    <ul style="color: red;">
+      <% @sighting.errors.each do |error| %>
+        <li><%= error.message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :cat_id, "対象の猫を選んでください" %><br>
+    <%= f.collection_select :cat_id, Cat.includes(:area).order(:name), :id,
+          ->(cat) { "#{cat.name}（#{cat.area.name}）" }, include_blank: "わからない" %>
+  </div>
+
+  <div>
+    <%= f.label :area_id, "地区（猫が「わからない」場合に選んでください）" %><br>
+    <%= f.collection_select :area_id, Area.order(:name), :id, :name, include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :kind, "報告の種類を選んでください" %><br>
+    <%= f.select :kind, Sighting::KINDS, include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :description, "報告内容を記載してください" %><br>
+    <%= f.text_area :description, rows: 5, cols: 40 %>
+  </div>
+
+  <%= f.submit "報告する" %>
+<% end %>

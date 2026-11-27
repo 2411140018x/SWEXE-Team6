@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  area: one
+  cat: one
+  kind: ふん尿
+  description: 庭にふんがあった
+  status: 未確認
+
+two:
+  user: two
+  area: two
+  kind: 目撃
+  description: 見かけない猫がいた
+  status: 未確認

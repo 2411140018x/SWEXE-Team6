@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_20_031755) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_064701) do
   create_table "areas", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -37,6 +37,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_031755) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "sightings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "area_id", null: false
+    t.integer "cat_id"
+    t.string "kind"
+    t.text "description"
+    t.string "status", default: "未確認", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_sightings_on_area_id"
+    t.index ["cat_id"], name: "index_sightings_on_cat_id"
+    t.index ["user_id"], name: "index_sightings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -47,4 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_031755) do
 
   add_foreign_key "cats", "areas"
   add_foreign_key "sessions", "users"
+  add_foreign_key "sightings", "areas"
+  add_foreign_key "sightings", "cats"
+  add_foreign_key "sightings", "users"
 end
