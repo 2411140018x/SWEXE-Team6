@@ -85,4 +85,10 @@ class SightingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "まだ報告はありません", response.body
   end
+
+  test "一覧：メニューの自分の報告一覧がリンクになり、開いているときは aria-current が付く" do
+    sign_in_as(@user)
+    get sightings_url
+    assert_select "a.site-menu__link[href=?][aria-current=page]", sightings_path, text: "自分の報告一覧"
+  end
 end
