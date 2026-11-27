@@ -45,8 +45,8 @@
         <li><a href="/" class="site-menu__link">トップ</a></li>
         <li><%= link_to "猫台帳一覧", cats_path, class: "site-menu__link", aria: { current: ("page" if current_page?(cats_path)) } %></li>
         <li><%= link_to "猫を報告する", new_sighting_path, class: "site-menu__link" %></li>
+        <li><%= link_to "自分の報告一覧", sightings_path, class: "site-menu__link", aria: { current: ("page" if current_page?(sightings_path)) } %></li>
         <%# 以下はまだ画面が無いので「準備中」。画面ができたらリンクにする %>
-        <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">自分の報告一覧<span class="site-menu__badge">準備中</span></span></li>
         <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">地区ごとの集計<span class="site-menu__badge">準備中</span></span></li>
       </ul>
     </nav>

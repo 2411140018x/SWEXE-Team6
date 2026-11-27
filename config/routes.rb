@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :cats, only: [ :index, :show ]
-  resources :sightings, only: [:new, :create] do
+  resources :sightings, only: [ :index, :new, :create ] do
     get :complete, on: :collection
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,0 +1,36 @@
+<% content_for :title, "自分の報告一覧" %>
+
+<h1>自分の報告一覧</h1>
+
+<p><%= link_to "新しく報告する", new_sighting_path %></p>
+
+<% if @sightings.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>報告日時</th>
+        <th>対象の猫</th>
+        <th>地区</th>
+        <th>報告の種類</th>
+        <th>報告内容</th>
+        <th>対応状況</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sightings.each do |sighting| %>
+        <tr>
+          <%# DB は UTC で保存されているので、日本時間に直して表示する %>
+          <td><%= sighting.created_at.in_time_zone("Asia/Tokyo").strftime("%Y/%m/%d %H:%M") %></td>
+          <%# 猫は空でもよい設計なので、紐づいていなければ「未設定」と表示する %>
+          <td><%= sighting.cat&.name || "未設定" %></td>
+          <td><%= sighting.area.name %></td>
+          <td><%= sighting.kind %></td>
+          <td><%= sighting.description %></td>
+          <td><%= sighting.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>まだ報告はありません</p>
+<% end %>
