@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
   resource :session
   resources :passwords, param: :token
-  resources :cats, only: [ :index ]
+  resources :cats, only: [ :index, :show ]
   resources :sightings, only: [:new, :create] do
     get :complete, on: :collection
   end

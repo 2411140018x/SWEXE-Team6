@@ -36,4 +36,19 @@ class CatsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a.site-menu__link[href=?][aria-current=page]", cats_path, text: "猫台帳一覧"
     assert_select ".site-menu__link--disabled", text: /猫台帳一覧/, count: 0
   end
+
+  # ===== 各猫詳細画面 =====
+
+  test "詳細画面は、ログインしていないとログイン画面に移動する" do
+    get cat_url(cats(:one))
+
+    assert_redirected_to new_session_path
+  end
+
+  test "存在しない猫のIDを開くと404になり、500エラーにならない" do
+    sign_in_as(users(:one))
+    get cat_url(id: Cat.maximum(:id).to_i + 1)
+
+    assert_response :not_found
+  end
 end
