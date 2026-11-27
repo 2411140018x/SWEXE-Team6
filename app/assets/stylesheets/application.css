@@ -150,3 +150,243 @@ a.site-menu__link:hover {
     padding: 16px 24px;
   }
 }
+
+/* ===== 猫台帳一覧 ===== */
+.cat-index {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.cat-index__title {
+  margin: 0 0 24px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.cat-index__empty {
+  color: #666;
+}
+
+/* PCでは1行に4枚並べる（ワイヤーフレームどおり） */
+.cat-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-card {
+  color: #333;
+  text-align: center;
+}
+
+/* カード全体が詳細画面へのリンク。文字は青や下線にせず、カードの見た目のままにする */
+.cat-card__link {
+  display: block;
+  border-radius: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cat-card__link:hover .cat-card__photo {
+  opacity: 0.8;
+}
+
+.cat-card__link:hover .cat-card__name {
+  text-decoration: underline;
+}
+
+/* キーボードで選んだときに、どのカードか分かるよう枠を出す */
+.cat-card__link:focus-visible {
+  outline: 3px solid #e8935a;
+  outline-offset: 4px;
+}
+
+/* 写真の登録機能ができるまでの仮の枠（正方形・角丸） */
+.cat-card__photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  background: #c8d0db;
+  color: #5b6472;
+  font-size: 0.875rem;
+}
+
+.cat-card__name {
+  margin: 12px 0 4px;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.cat-card__info {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.cat-card__info div {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cat-card__info dt {
+  color: #888;
+}
+
+.cat-card__info dd {
+  margin: 0;
+}
+
+/* スマホ（ヘッダーと同じ600px以下）では1行に2枚 */
+@media (max-width: 600px) {
+  .cat-index {
+    padding: 24px 16px;
+  }
+
+  .cat-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 16px;
+  }
+
+  .cat-card__photo {
+    border-radius: 16px;
+  }
+}
+
+/* ===== 各猫詳細 ===== */
+.cat-detail {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  color: #333;
+}
+
+.cat-detail__back {
+  margin: 0 0 24px;
+}
+
+.cat-detail__back a {
+  color: #555;
+}
+
+/* PCでは写真（左）と情報（右）を横に並べる（ワイヤーフレームどおり） */
+.cat-detail__main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* 写真の登録機能ができるまでの仮の枠（一覧と同じ色） */
+.cat-detail__photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 32px;
+  background: #c8d0db;
+  color: #5b6472;
+}
+
+.cat-detail__name {
+  margin: 0 0 24px;
+  font-size: 2rem;
+}
+
+.cat-detail__info {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+}
+
+.cat-detail__info dt {
+  margin-bottom: 4px;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.cat-detail__info dd {
+  margin: 0;
+}
+
+.cat-reports {
+  margin-top: 32px;
+}
+
+.cat-reports__title {
+  margin: 0 0 12px;
+  font-size: 1.125rem;
+}
+
+.cat-reports__list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-report__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 0.875rem;
+}
+
+.cat-report__description {
+  margin: 4px 0 0;
+}
+
+.cat-reports__empty {
+  color: #666;
+}
+
+/* 報告の対応状況バッジ（クラス名は CatsHelper#sighting_status_badge_class が決める） */
+.status-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.status-badge--unconfirmed {
+  background: #ffe7d6;
+  color: #9a4a12;
+}
+
+.status-badge--confirmed {
+  background: #dcebff;
+  color: #1d4f91;
+}
+
+.status-badge--done {
+  background: #d8f5c8;
+  color: #2f6b1c;
+}
+
+/* スマホ（600px以下）では写真の下に情報を縦に並べる */
+@media (max-width: 600px) {
+  .cat-detail {
+    padding: 24px 16px;
+  }
+
+  .cat-detail__main {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .cat-detail__photo {
+    border-radius: 16px;
+  }
+
+  .cat-detail__name {
+    font-size: 1.5rem;
+  }
+}

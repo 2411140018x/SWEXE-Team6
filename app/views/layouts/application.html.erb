@@ -42,12 +42,21 @@
 
     <nav id="site-menu" class="site-menu" aria-label="メニュー">
       <ul class="site-menu__list">
+        <%# アカウントの種類でメニューを出し分ける（未ログインでも見られる画面があるので authenticated? で確認する） %>
+        <% menu_user = (Current.user if authenticated?) %>
         <li><a href="/" class="site-menu__link">トップ</a></li>
-        <%# 以下はまだ画面が無いので「準備中」。画面ができたらリンクにする %>
-        <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">猫台帳一覧<span class="site-menu__badge">準備中</span></span></li>
-        <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">猫を報告する<span class="site-menu__badge">準備中</span></span></li>
-        <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">自分の報告一覧<span class="site-menu__badge">準備中</span></span></li>
-        <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">地区ごとの集計<span class="site-menu__badge">準備中</span></span></li>
+        <li><%= link_to "猫台帳一覧", cats_path, class: "site-menu__link", aria: { current: ("page" if current_page?(cats_path)) } %></li>
+        <% if menu_user&.can_report? %>
+          <li><%= link_to "猫を報告する", new_sighting_path, class: "site-menu__link" %></li>
+          <li><%= link_to "自分の報告一覧", sightings_path, class: "site-menu__link", aria: { current: ("page" if current_page?(sightings_path)) } %></li>
+        <% end %>
+        <% if menu_user&.city_staff? %>
+          <%# 以下はまだ画面が無いので「準備中」。画面ができたらリンクにする %>
+          <li><span class="site-menu__link site-menu__link--disabled" aria-disabled="true">地区ごとの集計<span class="site-menu__badge">準備中</span></span></li>
+        <% end %>
+        <% unless menu_user %>
+          <li><%= link_to "ログイン", new_session_path, class: "site-menu__link" %></li>
+        <% end %>
       </ul>
     </nav>
 

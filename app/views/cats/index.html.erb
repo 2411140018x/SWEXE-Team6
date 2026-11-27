@@ -1,0 +1,33 @@
+<% content_for :title, "猫台帳一覧" %>
+
+<section class="cat-index">
+  <h1 class="cat-index__title">猫台帳一覧</h1>
+
+  <%# present? で一度だけ読み込み、件数確認と一覧表示で同じ結果を使う %>
+  <% if @cats.present? %>
+    <ul class="cat-list">
+      <% @cats.each do |cat| %>
+        <li class="cat-card">
+          <%# カード全体を押せるように、中身ごと詳細画面へのリンクにする %>
+          <%= link_to cat_path(cat), class: "cat-card__link" do %>
+            <%# 写真の登録機能ができるまでは仮の枠を表示する %>
+            <div class="cat-card__photo" aria-hidden="true">写真なし</div>
+            <p class="cat-card__name"><%= cat.name %></p>
+            <dl class="cat-card__info">
+              <div>
+                <dt>地区</dt>
+                <dd><%= cat.area.name %></dd>
+              </div>
+              <div>
+                <dt>耳先カット</dt>
+                <dd><%= cat.ear_cut ? "あり" : "なし" %></dd>
+              </div>
+            </dl>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="cat-index__empty">登録された猫はいません</p>
+  <% end %>
+</section>
